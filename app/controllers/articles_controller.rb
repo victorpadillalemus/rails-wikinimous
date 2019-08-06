@@ -1,12 +1,17 @@
 class ArticlesController < ApplicationController
-  def index
-    @articles = Articles.all
-  end
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
 
-  def create
+  def index
+    @articles = Article.all
   end
 
   def new
+    @article = Article.new
+  end
+
+  def create
+    @article = Article.create(article_strong_params)
+    redirect_to article_path(@article)
   end
 
   def edit
@@ -16,8 +21,20 @@ class ArticlesController < ApplicationController
   end
 
   def update
+    @article.update(article_strong_params)
+    redirect_to articles_path(@article)
   end
 
   def destroy
+  end
+
+  private
+
+  def article_strong_params
+    params.require(:article).permit(:title, :content)
+  end
+
+  def set_article
+    @pet = Pet.find(params[:id])
   end
 end
