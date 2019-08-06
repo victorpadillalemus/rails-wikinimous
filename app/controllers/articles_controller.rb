@@ -35,6 +35,6 @@ class ArticlesController < ApplicationController
   end
 
   def set_article
-    @pet = Pet.find(params[:id])
+    @article = Article.find(params[:id])
   end
 end
